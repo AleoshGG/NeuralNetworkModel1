@@ -1,8 +1,8 @@
 import numpy as np
 
 class NeuronalNetwork:
-    def __init__(self, path_dataset: str):
-        self.dataset = np.loadtxt(path_dataset, delimiter=",", skiprows=1)
+    def __init__(self, path_dataset: str, skiprows = 1):
+        self.dataset = np.loadtxt(path_dataset, delimiter=",", skiprows=skiprows)
         self.Y_values = self.__slicing_Y_values()
         self.X_values = self.__slicing_X_values()
         self.W_values = self.__generate_W_values()
