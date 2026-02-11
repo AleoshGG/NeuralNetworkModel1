@@ -23,4 +23,7 @@ plt.ylabel('Error')
 plt.title('Evolución del Error por Lambda')
 plt.legend()
 plt.grid(True, linestyle='--', alpha=0.6)
-plt.show() 
+plt.savefig("results/evolucion_error_lambdas.png")
+
+results[3].plot_weights_curve("results/evolucion_pesos.png")
+results[3].save_report_to_csv("results/reporte_red_neuronal.csv")
