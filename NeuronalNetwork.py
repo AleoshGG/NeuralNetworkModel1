@@ -1,4 +1,5 @@
 import numpy as np
+import numpy.linalg as la
 
 from entities.data_results import DataResults
 
@@ -34,8 +35,7 @@ class NeuronalNetwork:
     
     def train(self, epochs: int, lambda_value: float) -> DataResults:
 
-        history_evolution = DataResults(errors=[],weights=self.W_values)
-        m = self.X_values.shape[0]
+        history_evolution = DataResults(errors=[], weights=[])
 
         for i in range(epochs):
             y_c = self.__funtion_activation(self.X_values @ self.W_values)
@@ -44,12 +44,15 @@ class NeuronalNetwork:
             delta_w = - (lambda_value * (self.X_values.T @ error))
             self.W_values += delta_w
 
-            history_evolution.errors.append(error)
-            history_evolution.weights(self.W_values)
+            
+            error_magnitude = la.norm(error)
+
+            history_evolution.errors.append(error_magnitude)
+            history_evolution.weights.append(self.W_values.copy())
         
         return history_evolution
             
     def __funtion_activation(self, u):
-        if u < 0: return 0
-        elif u == 0: return 1
+        # np.where funciona así: np.where(condición, valor_si_verdad, valor_si_falso)
+        return np.where(u >= 0, 1, 0)
  
